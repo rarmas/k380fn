@@ -71,10 +71,7 @@ int main(int argc, char* argv[])
 	hid_device *handle;
 	struct hid_device_info *devs, *cur_dev;
 
-	static const int LOGITECH = 0x046d;
-	static const int K811 = 0xb317;
-
-	if (argc != 2) {
+  	if (argc != 2) {
 		printf("Usage: k810fn <-normal|-special>\n");
 		return 1;
 	}
@@ -90,7 +87,7 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
-	system("pause");
+	// system("pause");
 	return 0;
 }
 
