@@ -1,15 +1,18 @@
-// k811fnCLI.cpp : Defines the entry point for the console application.
+// k810fnCLI.cpp : Defines the entry point for the console application.
 //
 
 #include "stdafx.h"
 
 static const int LOGITECH = 0x046d;
 static const int K811 = 0xb317;
+static const int K810 = 0xb319;
 static const int TARGET_USAGE = 1;
 static const int TARGET_USAGE_PAGE = 65280;
 
-static const unsigned char setNormalMsg[] = { 0x10, 0xFF, 0x06, 0x14, 0x00, 0x00, 0x00 };
-static const unsigned char setSpecialMsg[] = { 0x10, 0xFF, 0x06, 0x14, 0x01, 0x00, 0x00 };
+// unlike for the MAC counterpart, we don't need to pass 0x0 as the first byte for the 8-byte msg
+// instead we pass 7-byte msg. 
+static const unsigned char setNormalMsg[] = { 0x10, 0xFF, 0x06, 0x15, 0x00, 0x00, 0x00 };
+static const unsigned char setSpecialMsg[] = { 0x10, 0xFF, 0x06, 0x15, 0x01, 0x00, 0x00 };
 static const int msgLength = 7;
 
 bool sendMessage(const unsigned char msg[]) {
@@ -19,7 +22,7 @@ bool sendMessage(const unsigned char msg[]) {
 	struct hid_device_info *devs, *cur_dev;
 	bool result = false;
 	res = hid_init();
-	devs = hid_enumerate(LOGITECH, K811);
+	devs = hid_enumerate(LOGITECH, K810);
 	cur_dev = devs;
 	while (cur_dev) {
 
@@ -72,7 +75,7 @@ int main(int argc, char* argv[])
 	static const int K811 = 0xb317;
 
 	if (argc != 2) {
-		printf("Usage: k811fn <-normal|-special>\n");
+		printf("Usage: k810fn <-normal|-special>\n");
 		return 1;
 	}
 
@@ -83,7 +86,7 @@ int main(int argc, char* argv[])
 		setSpecial();
 	}
 	else {
-		printf("Usage: k811fn <-normal|-special>\n");
+		printf("Usage: k810fn <-normal|-special>\n");
 		return 1;
 	}
 
