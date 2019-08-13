@@ -29,10 +29,10 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\hid.c">
+    <ClCompile Include="..\hid.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="k811fnCLI.cpp">
+    <ClCompile Include="k810fnCLI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

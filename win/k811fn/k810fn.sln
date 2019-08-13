@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "k811fnCLI", "k811fnCLI\k811fnCLI.vcxproj", "{B50506E3-D7E6-4FE8-B579-CFAD6ED03F58}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "k810fnCLI", "k810fnCLI.vcxproj", "{B50506E3-D7E6-4FE8-B579-CFAD6ED03F58}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
