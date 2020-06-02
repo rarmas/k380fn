@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- use this file placed under ~/Library/LaunchAgent for automatic execution of the utility -->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>Label</key>
+        <string>K810 fn key switch</string>
+
+        <key>ProgramArguments</key>
+        <array>
+            <string>/Users/krim/bin/k810fn.sh</string>
+        </array>
+
+        <key>WatchPaths</key>
+        <array>
+            <string>/Library/Preferences/com.apple.Bluetooth.plist</string>
+        </array>
+    </dict>
+</plist>
