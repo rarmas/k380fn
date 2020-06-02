@@ -817,7 +817,8 @@ hid_device * HID_API_EXPORT hid_open_path(const char *path)
 	}
 
 	/* Open the IOHIDDevice */
-	ret = IOHIDDeviceOpen(dev->device_handle, kIOHIDOptionsTypeSeizeDevice);
+    /* see https://github.com/signal11/hidapi/issues/266 */
+	ret = IOHIDDeviceOpen(dev->device_handle, kIOHIDOptionsTypeNone);
 	if (ret == kIOReturnSuccess) {
 		char str[32];
 
