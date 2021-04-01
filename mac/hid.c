@@ -28,7 +28,6 @@
 #include <IOKit/usb/USBSpec.h>
 #include <CoreFoundation/CoreFoundation.h>
 #include <wchar.h>
-#include <locale.h>
 #include <pthread.h>
 #include <sys/time.h>
 #include <unistd.h>

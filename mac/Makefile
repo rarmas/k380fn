@@ -5,6 +5,7 @@ CXX=g++
 COBJS=hid.o
 CPPOBJS=k810fn.o
 OBJS=$(COBJS) $(CPPOBJS)
+#CFLAGS+=-I/usr/local/Cellar/hidapi/0.10.1/include/hidapi -Wall -g -c
 CFLAGS+=-I../include/ -Wall -g -c
 LIBS=-framework IOKit -framework CoreFoundation
 

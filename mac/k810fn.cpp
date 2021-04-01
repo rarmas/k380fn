@@ -1,8 +1,5 @@
 #include <stdio.h>
-#include <wchar.h>
 #include <string.h>
-#include <string.h>
-#include <stdlib.h>
 #include "hidapi.h"
 
 int main(int argc, char* argv[])
@@ -13,7 +10,6 @@ int main(int argc, char* argv[])
 	struct hid_device_info *devs, *cur_dev;
 
 	static const int LOGITECH = 0x046d;
-	static const int K811 = 0xb317;
 	static const int K810 = 0xb319;
     static const char help[64] = "Usage: k810fn <-normal|-special>\n";
 
