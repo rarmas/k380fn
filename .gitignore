@@ -232,3 +232,9 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+
+# intellij 
+.idea
+
+# vim 
+.*.sw*
