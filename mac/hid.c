@@ -342,7 +342,7 @@ int HID_API_EXPORT hid_init(void)
 {
 	if (!hid_mgr) {
 		is_macos_10_10_or_greater = (NSAppKitVersionNumber >= 1343); /* NSAppKitVersionNumber10_10 */
-		hid_darwin_set_open_exclusive(1); /* Backward compatibility */
+		hid_darwin_set_open_exclusive(0); /* Backward compatibility */
 		return init_hid_manager();
 	}
 
