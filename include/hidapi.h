@@ -5,9 +5,9 @@
  Alan Ott
  Signal 11 Software
 
- 8/22/2009
+ libusb/hidapi Team
 
- Copyright 2009, All Rights Reserved.
+ Copyright 2022, All Rights Reserved.
 
  At the discretion of the user of this library,
  this software may be licensed under the terms of the
@@ -39,9 +39,64 @@
 
 #define HID_API_EXPORT_CALL HID_API_EXPORT HID_API_CALL /**< API export and call macro*/
 
+/** @brief Static/compile-time major version of the library.
+
+	@ingroup API
+*/
+#define HID_API_VERSION_MAJOR 0
+/** @brief Static/compile-time minor version of the library.
+
+	@ingroup API
+*/
+#define HID_API_VERSION_MINOR 12
+/** @brief Static/compile-time patch version of the library.
+
+	@ingroup API
+*/
+#define HID_API_VERSION_PATCH 0
+
+/* Helper macros */
+#define HID_API_AS_STR_IMPL(x) #x
+#define HID_API_AS_STR(x) HID_API_AS_STR_IMPL(x)
+#define HID_API_TO_VERSION_STR(v1, v2, v3) HID_API_AS_STR(v1.v2.v3)
+
+/** @brief Coverts a version as Major/Minor/Patch into a number:
+	<8 bit major><16 bit minor><8 bit patch>.
+
+	This macro was added in version 0.12.0.
+
+	Convenient function to be used for compile-time checks, like:
+	#if HID_API_VERSION >= HID_API_MAKE_VERSION(0, 12, 0)
+
+	@ingroup API
+*/
+#define HID_API_MAKE_VERSION(mj, mn, p) (((mj) << 24) | ((mn) << 8) | (p))
+
+/** @brief Static/compile-time version of the library.
+
+	This macro was added in version 0.12.0.
+
+	@see @ref HID_API_MAKE_VERSION.
+
+	@ingroup API
+*/
+#define HID_API_VERSION HID_API_MAKE_VERSION(HID_API_VERSION_MAJOR, HID_API_VERSION_MINOR, HID_API_VERSION_PATCH)
+
+/** @brief Static/compile-time string version of the library.
+
+	@ingroup API
+*/
+#define HID_API_VERSION_STR HID_API_TO_VERSION_STR(HID_API_VERSION_MAJOR, HID_API_VERSION_MINOR, HID_API_VERSION_PATCH)
+
 #ifdef __cplusplus
 extern "C" {
 #endif
+		struct hid_api_version {
+			int major;
+			int minor;
+			int patch;
+		};
+
 		struct hid_device_;
 		typedef struct hid_device_ hid_device; /**< opaque hidapi structure */
 
@@ -63,10 +118,10 @@ extern "C" {
 			/** Product string */
 			wchar_t *product_string;
 			/** Usage Page for this Device/Interface
-			    (Windows/Mac only). */
+			    (Windows/Mac/hidraw only) */
 			unsigned short usage_page;
 			/** Usage for this Device/Interface
-			    (Windows/Mac only).*/
+			    (Windows/Mac/hidraw only) */
 			unsigned short usage;
 			/** The USB interface which this logical device
 			    represents.
@@ -91,7 +146,7 @@ extern "C" {
 			needed.  This function should be called at the beginning of
 			execution however, if there is a chance of HIDAPI handles
 			being opened by different threads simultaneously.
-			
+
 			@ingroup API
 
 			@returns
@@ -336,6 +391,8 @@ extern "C" {
 
 		/** @brief Get a input report from a HID device.
 
+			Since version 0.10.0, @ref HID_API_VERSION >= HID_API_MAKE_VERSION(0, 10, 0)
+
 			Set the first byte of @p data[] to the Report ID of the
 			report to be read. Make sure to allow space for this
 			extra byte in @p data[]. Upon return, the first byte will
@@ -437,6 +494,25 @@ extern "C" {
 				which occurred or NULL if none has occurred.
 		*/
 		HID_API_EXPORT const wchar_t* HID_API_CALL hid_error(hid_device *dev);
+
+		/** @brief Get a runtime version of the library.
+
+			@ingroup API
+
+			@returns
+				Pointer to statically allocated struct, that contains version.
+		*/
+		HID_API_EXPORT const  struct hid_api_version* HID_API_CALL hid_version(void);
+
+
+		/** @brief Get a runtime version string of the library.
+
+			@ingroup API
+
+			@returns
+				Pointer to statically allocated string, that contains version string.
+		*/
+		HID_API_EXPORT const char* HID_API_CALL hid_version_str(void);
 
 #ifdef __cplusplus
 }
