@@ -10,8 +10,8 @@ int main(int argc, char* argv[])
 	struct hid_device_info *devs, *cur_dev;
 
 	static const int LOGITECH = 0x046d;
-	static const int K810 = 0xb319;
-    static const char help[64] = "Usage: k810fn <-normal|-special>\n";
+	static const int K380 = 0xb342;
+    static const char help[64] = "Usage: k380fn <-normal|-special>\n";
 
 	if (argc != 2) {
 		printf(help);
@@ -20,19 +20,18 @@ int main(int argc, char* argv[])
 
 	// found using Packet Logger
 	memset(buf,0,sizeof(buf));
-	buf[0] = 0x0;
-	buf[1] = 0x10;
-	buf[2] = 0xFF;
-	buf[3] = 0x06;
-	buf[4] = 0x15;
-	// 5 is set below
+	buf[0] = 0x10;
+	buf[1] = 0xFF;
+	buf[2] = 0x0B;
+	buf[3] = 0x1E;
+	buf[5] = 0x00;
+	// 4 is set below
 	buf[6] = 0x00;
-	buf[7] = 0x00;
 
 	if (strcmp(argv[1], "-normal") == 0) {
-		buf[5] = 0x00; // f#-keys
+		buf[4] = 0x00; // f#-keys
 	} else if (strcmp(argv[1], "-special") == 0) {
-		buf[5] = 0x01; // function keys
+		buf[4] = 0x01; // function keys
 	} else {
 		printf(help);
 		return 1;
@@ -41,14 +40,14 @@ int main(int argc, char* argv[])
 	res = hid_init();
 
 	printf("Discovering devices ...\n");
-	devs = hid_enumerate(LOGITECH, K810);
+	devs = hid_enumerate(LOGITECH, K380);
 	cur_dev = devs;
 	while (cur_dev) {
 		if (cur_dev->usage == 6) {
 			printf("  Product:      %ls\n", cur_dev->product_string);
 			handle = hid_open_path(cur_dev->path);
 
-			res = hid_write(handle, buf, 8);
+			res = hid_write(handle, buf, 7);
 			if (res < 0) {
 				printf("Unable to write()\n");
 				printf("Error: %ls\n", hid_error(handle));
